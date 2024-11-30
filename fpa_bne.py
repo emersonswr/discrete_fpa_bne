@@ -332,7 +332,7 @@ def compute_fpa_revenue(bidders, anonymous_reserve, points=1000):
             else:
                 rev_b[j] = (bid_range[j] * np.prod(cdf) / (len(active_values) - 1.0) *
                               sum(1.0 / (np.array(active_values) - bid_range[j])))
-        rev = integrate.simps(rev_b, bid_range)
+        rev = integrate.simpson(rev_b, x=bid_range)
 
     min_winning_bid = max(compute_min_winning_bid(bidders), anonymous_reserve)
     no_winner_prob = 1.0
@@ -370,7 +370,7 @@ def compute_fpa_welfare(bidders, anonymous_reserve, points=1000):
                     wel_b[j] = np.prod(cdf) * (sum(active_values) / (len(active_values) - 1.0) *
                                                sum(1.0 / (np.array(active_values) - bid_range[j])) -
                                                sum(np.array(active_values) / (np.array(active_values) - bid_range[j])))
-            wel += integrate.simps(wel_b, bid_range)
+            wel += integrate.simpson(wel_b, x=bid_range)
 
     # point mass at min winning bid
     min_winning_bid = max(compute_min_winning_bid(bidders), anonymous_reserve)
